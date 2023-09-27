@@ -31,7 +31,7 @@ export default function AppBarHeaderMenu_Lab2({ navigation, route, options, back
             title="Details"
             leadingIcon={"clipboard-list"}
             onPress={() => {
-              navigation.navigate("Details");
+              navigation.navigate("ContactsScreen");
               closeMenu();
               //console.log("Open 2 was pressed");
             }}
@@ -40,7 +40,7 @@ export default function AppBarHeaderMenu_Lab2({ navigation, route, options, back
             title="Screen Test"
             leadingIcon={"monitor-screenshot"}
             onPress={() => {
-              navigation.navigate("ScreenTest");
+              navigation.navigate("ProfileScreen");
               closeMenu();
             }}
           />
