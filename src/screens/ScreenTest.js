@@ -6,13 +6,20 @@ export default function ScreenTest({ navigation }) {
   return (
     <View style={styles.container}>
       <Text
-        style={{ color: "rgb(19, 233, 58)", fontSize: 24, fontWeight: "bold" }}
+        style={{
+          //color: "rgb(19, 233, 58)",
+          fontSize: 24,
+          fontWeight: "bold",
+        }}
       >
-        ScreenTest
+        Demo Screen
       </Text>
 
       <Button
-        style={{ margin: 10, backgroundColor: "rgb(158, 64, 142)" }}
+        style={{
+          margin: 10,
+          //backgroundColor: "rgb(158, 64, 142)",
+        }}
         mode="contained-tonal"
         icon={"home"}
         onPress={() => navigation.navigate("Home")}
@@ -21,7 +28,10 @@ export default function ScreenTest({ navigation }) {
       </Button>
 
       <Button
-        style={{ margin: 10, backgroundColor: "rgb(36, 116, 245)" }}
+        style={{
+          margin: 10,
+          //backgroundColor: "rgb(36, 116, 245)",
+        }}
         mode="contained-tonal"
         onPress={() => navigation.navigate("Details")}
         icon={"clipboard-list"}

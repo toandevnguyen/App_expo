@@ -19,6 +19,7 @@ import { PaperProvider } from "react-native-paper";
 import ContactsScreen from "./src/screens/ContactsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import CustomNavigationBar_Lab2 from "./src/navigation/CustomNavigationBar_Lab2";
+import DrawerBar from "./src/components_rn_paper/DrawerBar";
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -27,9 +28,9 @@ const App = () => {
       <PaperProvider>
         {/* <ProfileScreen /> */}
         {/* <ContactsScreen /> */}
-        <CustomNavigationBar_Lab2 />
-
         {/* <CustomNavigationBar_Lab2 /> */}
+        <DrawerBar/>
+        {/* <CustomNavigationBar/> */}
         {/* <HomePage/> */}
       </PaperProvider>
     </SafeAreaProvider>

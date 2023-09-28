@@ -5,11 +5,14 @@ import { fetchRandomContact } from "../utility/api";
 import ContactThumbnail from "../components_rn_paper/ContactThumbnail";
 import DetailListItem from "../components_rn_paper/DetailListItem";
 
-export default function ProfileScreen(navigation) {
-  const [contact, setContact] = React.useState({});
-  React.useEffect(() => {
-    fetchRandomContact().then((contact) => setContact(contact));
-  }, []);
+export default function ProfileScreen({route}) {
+  // const [contact, setContact] = React.useState({});
+  // const{contacts}=route.params;
+  // React.useEffect(() => {
+  //   fetchRandomContact().then((contact) => setContact(contact));
+  // }, []);
+
+  const{contact}=route.params;
 
   const { avatar, name, email, phone, cell } = contact;
   return (

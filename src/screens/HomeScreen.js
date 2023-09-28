@@ -7,30 +7,30 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text
-        style={{ color: "rgb(158, 64, 142)", fontSize: 24, fontWeight: "bold" }}
+        style={{ color: "rgb(10, 10, 10)", fontSize: 24, fontWeight: "bold" }}
       >
-        HomeScreen
+        Home
       </Text>
 
       <Button
-        style={{ margin: 10, backgroundColor: "rgb(36, 116, 245)" }}
+        style={{ margin: 10,  }}
         // style={styles.btn}
         mode="contained-tonal"
         onPress={() => navigation.navigate("Details")}
         icon={"clipboard-list"}
       >
-        Go to Details Screen
+        Details Screen
       </Button>
 
       <Button
         // style={styles.btn}
         // style={{ magin: 10 }}
-        style={{ margin: 10, backgroundColor: "rgb(19, 233, 58)" }}
+        style={{ margin: 10, }}
         mode="contained-tonal"
         onPress={() => navigation.navigate("ScreenTest")}
         icon={"monitor-screenshot"}
       >
-        Go to ScreenTest
+        Demo Screen
       </Button>
     </View>
   );

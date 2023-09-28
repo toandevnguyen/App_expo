@@ -11,6 +11,7 @@ import AppBarHeaderMenu from "../components_rn_paper/AppBarHeaderMenu";
 import ContactsScreen from "../screens/ContactsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import AppBarHeaderMenu_Lab2 from "../components_rn_paper/AppBarHeaderMenu_Lab2";
+import colors from "../utility/colors";
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,7 @@ const CustomNavigationBar_Lab2 = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ContactsScreen"
+        initialRouteName="Contacts"
         screenOptions={
           {
             header: (props)=> <AppBarHeaderMenu_Lab2 {...props} />,
@@ -28,8 +29,25 @@ const CustomNavigationBar_Lab2 = () => {
           }
         }
       >
-        <Stack.Screen name="ContactsScreen" component={ContactsScreen} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="Contacts" component={ContactsScreen} />
+        <Stack.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={({route})=>
+            {
+              const{contact}=route.params;
+              const{name}=contact
+              return{
+                title:name.split(' ')[0],
+                headerTintColor:'white',
+                headerStyle:{
+                  backgroundColor:colors.blue,
+                }
+              };
+            }          
+          }
+            
+        />
         {/* <Stack.Screen name="ScreenTest" component={ScreenTest} /> */}
       </Stack.Navigator>
     </NavigationContainer>
