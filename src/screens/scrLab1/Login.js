@@ -29,7 +29,7 @@ export default function Login() {
         <Avatar.Image
           style={{ marginTop: 100 }}
           size={100}
-          source={require("../../assets/AvtTonDev.png")}
+          source={require("../../../assets/AvtTonDev.png")}
         />
         <View style={styles.textInput}>
           <TextInput

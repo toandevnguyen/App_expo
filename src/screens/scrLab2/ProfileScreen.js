@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import colors from "../utility/colors";
-import { fetchRandomContact } from "../utility/api";
-import ContactThumbnail from "../components_rn_paper/ContactThumbnail";
-import DetailListItem from "../components_rn_paper/DetailListItem";
+import colors from "../../utility/colors";
+import { fetchRandomContact } from "../../utility/api";
+import ContactThumbnail from "../../components/cpnLab2/ContactThumbnail";
+import DetailListItem from "../../components/DetailListItem";
 
-export default function ProfileScreen({route}) {
+export default function ProfileScreen({navigation,route}) {
   // const [contact, setContact] = React.useState({});
   // const{contacts}=route.params;
   // React.useEffect(() => {

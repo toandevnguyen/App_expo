@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet,View,TouchableHighlight,Text,Image,} from 'react-native';
 import PropTypes from 'prop-types';
-import colors from '../utility/colors';
+import colors from '../../../src/utility/colors';
 
 const  ContactListItem=({
   name, avatar, phone, onPress,

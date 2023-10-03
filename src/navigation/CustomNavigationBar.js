@@ -2,12 +2,12 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import HomeScreen from "../screens/HomeScreen";
-import DetailsScreen from "../screens/DetailsScreen";
-import ScreenTest from "../screens/ScreenTest";
-import MenuBtn from "../components_rn_paper/MenuBtn";
-import AppBarHeader from "../components_rn_paper/AppBarHeaderMenu";
-import AppBarHeaderMenu from "../components_rn_paper/AppBarHeaderMenu";
+import HomeScreen from "../screens/scrLab1/HomeScreen";
+import DetailsScreen from "../screens/scrLab1/DetailsScreen";
+import ScreenTest from "../screens/scrLab1/ScreenTest";
+import MenuBtn from "../components/MenuBtn";
+import AppBarHeader from "../components/AppBarHeaderMenu";
+import AppBarHeaderMenu from "../components/AppBarHeaderMenu";
 
 const Stack = createStackNavigator();
 

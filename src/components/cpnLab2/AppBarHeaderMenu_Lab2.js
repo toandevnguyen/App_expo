@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Appbar, Menu } from "react-native-paper";
 import { getHeaderTitle } from "@react-navigation/elements";
-import MenuItem from "./MenuItem";
+import MenuItem from "../MenuItem";
 
 export default function AppBarHeaderMenu_Lab2({ navigation, route, options, back }) {
   const [visible, setVisible] = React.useState(false);
