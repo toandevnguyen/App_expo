@@ -24,6 +24,9 @@
       },
       "package": "com.anonymous.App_expo"
     },
+
+    
+
     "web": {
       "favicon": "./assets/favicon.png"
     }

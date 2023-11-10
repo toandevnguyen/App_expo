@@ -3,7 +3,7 @@ import React from "react";
 import colors from "../../utility/colors";
 import { fetchRandomContact } from "../../utility/api";
 import ContactThumbnail from "../../components/cpnLab2/ContactThumbnail";
-import DetailListItem from "../../components/DetailListItem";
+import DetailListItem from "../../components/cpnLab1/DetailListItem";
 
 export default function ProfileScreen({navigation,route}) {
   // const [contact, setContact] = React.useState({});
@@ -12,14 +12,15 @@ export default function ProfileScreen({navigation,route}) {
   //   fetchRandomContact().then((contact) => setContact(contact));
   // }, []);
 
-  const{contact}=route.params;
-
-  const { avatar, name, email, phone, cell } = contact;
+  const{contact}=route.params; //
+  const { avatar, name, email, phone, cell } = contact; //lay tham so truyen vao, khi click vao 1 
   return (
     <View style={styles.container}>
+      
       <View style={styles.avatarSection}>
         <ContactThumbnail avatar={avatar} name={name} email={phone} />
       </View>
+      
       <View style={styles.detailsSection}>
         <DetailListItem 
             icon="mail"

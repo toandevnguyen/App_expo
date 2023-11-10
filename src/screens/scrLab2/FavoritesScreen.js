@@ -69,7 +69,7 @@ const FavoritesScreen = ({ navigation }) => {
         setLoading(false);
         setError(true);
       });
-  });
+  },[]);
   const renderFavoriteThumbnail = ({ item }) => {
     const { avatar } = item;
     return (

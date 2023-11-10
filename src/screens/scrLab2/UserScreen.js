@@ -22,6 +22,7 @@ const getTabBarIcon =
   (icon) =>
   ({ tintColor }) =>
     <MaterialIcons name={icon} size={26} style={{ color: tintColor }} />;
+
 const UserStack = createNativeStackNavigator();
 export default function UserScreenStack({ navigation }) {
   return (
@@ -35,13 +36,13 @@ export default function UserScreenStack({ navigation }) {
             <MaterialIcons
               name="settings"
               size={24}
-              style={{ colors:"blue",marginRight:20}}
-              onPress={()=>navigation.navigate("Options")}
+              style={{ colors: "blue", marginRight: 20 }}
+              onPress={() => navigation.navigate("Options")}
             />
           ),
         }}
       />
-      <UserStack.Screen name="Options" component={OptionsScreen}/>
+      <UserStack.Screen name="Options" component={OptionsScreen} />
     </UserStack.Navigator>
   );
 }
@@ -50,7 +51,9 @@ const UserScreenLayout = () => {
   const [user, setUser] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
-  //Load du lieu
+  
+
+  //Đây là hàm callback được gọi sau khi component render. Nó sẽ thiết lập một lắng nghe sự kiện từ API
   React.useEffect(() => {
     fetchUserContact()
       .then((users) => {
@@ -59,10 +62,12 @@ const UserScreenLayout = () => {
         setError(false);
       })
       .catch((e) => {
-        setLoading(false);
+        setLoading(true);
         setError(true);
       });
-  });
+  }, []);
+
+  
   const { avatar, name, phone } = user;
   return (
     <View style={styles.container}>

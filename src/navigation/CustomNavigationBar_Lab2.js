@@ -5,9 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "../screens/scrLab1/HomeScreen";
 import DetailsScreen from "../screens/scrLab1/DetailsScreen";
 import ScreenTest from "../screens/scrLab1/ScreenTest";
-import MenuBtn from "../components/MenuBtn";
-import AppBarHeader from "../components/AppBarHeaderMenu";
-import AppBarHeaderMenu from "../components/AppBarHeaderMenu";
+import MenuBtn from "../components/cpnLab1/MenuBtn";
+import AppBarHeader from "../components/cpnLab1/AppBarHeaderMenu";
+import AppBarHeaderMenu from "../components/cpnLab1/AppBarHeaderMenu";
 import ContactsScreen from "../screens/scrLab2/ContactsScreen";
 import ProfileScreen from "../screens/scrLab2/ProfileScreen";
 import AppBarHeaderMenu_Lab2 from "../components/cpnLab2/AppBarHeaderMenu_Lab2";
@@ -22,7 +22,7 @@ const CustomNavigationBar_Lab2 = () => {
         initialRouteName="Contacts"
         screenOptions={
           {
-            header: (props)=> <AppBarHeaderMenu_Lab2 {...props} />,
+            // header: (props)=> <AppBarHeaderMenu_Lab2 {...props} />,
             // headerTintColor: "white",
             // headerStyle: {backgroundColor:"tomato"},
             // headerTitleAlign: "left",  

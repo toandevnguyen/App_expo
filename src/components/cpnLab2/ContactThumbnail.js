@@ -21,7 +21,6 @@ const ContactThumbnail= ({name,phone,avatar,textColor,onPress,})=>
         />
       </ImageComponent>
       {name !== '' && <Text style={[styles.name, colorStyle]}>{name}</Text>}
-
       {phone !== '' && (
         <View style={styles.phoneSection}>
           <Icon name="phone" size={16} style={{ color: textColor }} />

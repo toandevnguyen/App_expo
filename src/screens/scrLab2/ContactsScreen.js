@@ -49,11 +49,12 @@ const ContactsScreenStack = () => {
 };
 
 const ContactsScreen = ({ navigation }) => {
-  //state
+  
   const [contacts, setContacts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
-  //up du lieu
+  
+  // Đây là một hook trong React, cho phép bạn thực hiện các hiệu ứng phụ sau khi render.
   React.useEffect(() => {
     fetchContacts()
       .then((contacts) => {
@@ -87,7 +88,7 @@ const ContactsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading && <ActivityIndicator color="blue" size="large" />}
-      {error && <Text>Error...</Text>}
+      {error && <Text>Đợi xíu...</Text>}
       {!loading && !error && (
         <FlatList
           data={contactsSorted}
