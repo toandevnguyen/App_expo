@@ -65,6 +65,7 @@ const UserScreenLayout = () => {
         Email: {userProfile.currentUser.email}
       </Text>
       <Text style={styles.infoUser}>UID: {userProfile.currentUser.uid}</Text>
+      <Text style={styles.infoUser}>abc</Text>
     </View>
   );
 };
