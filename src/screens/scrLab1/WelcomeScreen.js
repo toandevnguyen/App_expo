@@ -1,35 +1,19 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Alert,
-  ImageBackground,
-  ActivityIndicator,
-} from "react-native";
-import {
-  Button,
-  TextInput,
-  Switch,
-  PaperProvider,
-  Avatar,
-} from "react-native-paper";
-import React from "react";
+import React from 'react';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { Button, Avatar } from 'react-native-paper';
 // import { FIRE_BASE_AUTH } from "../../firebase/firebaseConfig";
 
 export default function WelcomeScreen({ navigation }) {
-
-
   // const image = require('../../../assets/react_native_logo.gif') ;
-  const imgBg = require("../../../assets/gif/quby_line_hi.gif");
+  const imgBg = require('../../../assets/gif/quby_line_hi.gif');
 
   return (
     <View style={styles.container}>
-      
       <ImageBackground source={imgBg} resizeMode="contain" style={styles.imgbg}>
         <Avatar.Image
           style={styles.avtImg}
           size={100}
-          source={require("../../../assets/AvtTonDev.png")}
+          source={require('../../../assets/AvtTonDev.png')}
         />
         <Text style={styles.title}>Welcome To My App!</Text>
 
@@ -42,9 +26,8 @@ export default function WelcomeScreen({ navigation }) {
               // alert(
               //   "Xin chao " + textUserName + "\n" + "Password: " + textPassword
               // );
-              navigation.navigate("SignUpScreen");
-            }}
-          >
+              navigation.navigate('SignUpScreen');
+            }}>
             Sign Up
           </Button>
 
@@ -56,9 +39,8 @@ export default function WelcomeScreen({ navigation }) {
               // alert(
               //   "Xin chao " + textUserName + "\n" + "Password: " + textPassword
               // );
-              navigation.navigate("LoginScreen");
-            }}
-          >
+              navigation.navigate('LoginScreen');
+            }}>
             Login
           </Button>
         </View>
@@ -69,36 +51,33 @@ export default function WelcomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,  
-    backgroundColor: "pink",
+    flex: 1,
+    backgroundColor: 'pink',
   },
 
   imgbg: {
     //backgroundColor: "#000",
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   avtImg: {
-    position: "absolute",
-    marginTop:30
-    
+    position: 'absolute',
+    marginTop: 30,
   },
 
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 24,
-    color: "black",
+    color: 'black',
     marginTop: 135,
     //backgroundColor: "#000",
   },
 
   groupButton: {
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 50,
     // backgroundColor: "#ce33d6",
   },
-  
-
 });

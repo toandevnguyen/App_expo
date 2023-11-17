@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
       </Button>
 
       <Button
-        style={{ margin: 10,  }}
+        style={{ margin: 10}}
         // style={styles.btn}
         mode="contained-tonal"
         onPress={() =>{Platform.OS==="web" ? window.location.href='https://dkmh.tdmu.edu.vn/#/tkb-tuan' : navigation.navigate("Dkmh")}}

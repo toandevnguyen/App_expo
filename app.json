@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "App_expo",
+    "name": "app-expo",
     "slug": "App_expo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,13 +22,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.App_expo"
+      "package": "com.tontapcode.appexpo"
     },
-
-    
-
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "scheme": "app-expo",
+    "extra": {
+      "eas": {
+        "projectId": "299a5541-68a4-49bc-96db-379432ebac46"
+      }
     }
   }
 }

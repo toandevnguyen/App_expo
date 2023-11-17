@@ -1,4 +1,4 @@
-package com.appexpo;
+package com.tontapcode.appexpo;
 
 import android.os.Build;
 import android.os.Bundle;

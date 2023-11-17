@@ -1,4 +1,6 @@
-import *as React from "react";
+/* eslint-disable prettier/prettier */
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
 import {
   StyleSheet,
   Text,
@@ -6,29 +8,24 @@ import {
   FlatList,
   ActivityIndicator,
 } from "react-native";
-import { fetchContacts } from "../../../src/utility/api";
-import ContactListItem from "../../../src/components/cpnLab2/ContactListItem";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
 import ProfileScreen from "./ProfileScreen";
+import ContactListItem from "../../../src/components/cpnLab2/ContactListItem";
+import { fetchContacts } from "../../../src/utility/api";
 import colors from "../../utility/colors";
 
 const keyExtractor = ({ phone }) => phone;
 
-const ContactStack = createNativeStackNavigator();//ngăn xếp phía trên
+const ContactStack = createNativeStackNavigator(); //ngăn xếp phía trên
 const ContactsScreenStack = () => {
   return (
-    <ContactStack.Navigator
-      initialRouteName="ContactsScreen"
-    >
-    {/* component-màn hình nào nằm trên thì sẽ hiển thị trước
+    <ContactStack.Navigator initialRouteName="ContactsScreen">
+      {/* component-màn hình nào nằm trên thì sẽ hiển thị trước
         name sẽ hiển thị trên header và phải trùng với navigation.navigate('name')
 
      */}
-    
-      <ContactStack.Screen name="ContactsScreen" component={ContactsScreen} /> 
+
+      <ContactStack.Screen name="ContactsScreen" component={ContactsScreen} />
       <ContactStack.Screen
         name="Profile"
         component={ProfileScreen}
@@ -49,11 +46,10 @@ const ContactsScreenStack = () => {
 };
 
 const ContactsScreen = ({ navigation }) => {
-  
   const [contacts, setContacts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
-  
+
   // Đây là một hook trong React, cho phép bạn thực hiện các hiệu ứng phụ sau khi render.
   React.useEffect(() => {
     fetchContacts()
@@ -80,7 +76,7 @@ const ContactsScreen = ({ navigation }) => {
         // onPress={()=>{}}
         // onPress={() => navigation.navigate("Profile")}
 
-        onPress={() => navigation.navigate("Profile", { contact: item })}//"Profile" phải trùng khớp với ContactStack.Screen name="Profile" 
+        onPress={() => navigation.navigate("Profile", { contact: item })} //"Profile" phải trùng khớp với ContactStack.Screen name="Profile"
       />
     );
   };

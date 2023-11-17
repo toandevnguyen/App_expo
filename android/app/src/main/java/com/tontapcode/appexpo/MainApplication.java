@@ -1,4 +1,4 @@
-package com.appexpo;
+package com.tontapcode.appexpo;
 
 import android.app.Application;
 import android.content.res.Configuration;

@@ -1,24 +1,23 @@
-import * as Progress from 'react-native-progress';
+/* eslint-disable prettier/prettier */
+// import 'expo-dev-client';
+
+import { createUserWithEmailAndPassword,signOut } from "firebase/auth";
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Alert,
   ImageBackground,
-  ActivityIndicator,
 } from "react-native";
 import {
   Button,
   TextInput,
-  Switch,
-  PaperProvider,
   Avatar,
   HelperText,
 } from "react-native-paper";
 
-import React from "react";
 import { FIRE_BASE_AUTH } from "../../firebase/firebaseConfig";
-import { createUserWithEmailAndPassword,signOut } from "firebase/auth";
+
 // import { FIRE_BASE_AUTH } from "../../firebase/firebaseConfig";
 
 export default function SignUpScreen({ navigation }) {
@@ -51,7 +50,7 @@ export default function SignUpScreen({ navigation }) {
           textPassword,
           setButton(true),
           alert(
-            "Tài khoản: " + textUserName + "\n" + "Password: " + textPassword
+            "Tài khoản: " + textUserName + "\n Password: " + textPassword
           )
           // navigation.navigate("LoginScreen")
         );
@@ -107,7 +106,7 @@ export default function SignUpScreen({ navigation }) {
           </HelperText>
 
           <TextInput
-            secureTextEntry={true}
+            secureTextEntry
             placeholder="*******"
             maxLength={8}
             // passwordRules="required: upper; required: lower; required: digit; max-consecutive: 2; maxlength: 8;"
