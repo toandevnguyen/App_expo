@@ -7,6 +7,7 @@ import { Avatar } from 'react-native-paper';
 import OptionsScreen from './OptionsScreen';
 import { FIRE_BASE_AUTH } from '../../firebase/firebaseConfig'; //= getAuth
 import colors from '../../utility/colors';
+// import {} from '../../../App'
 
 const getTabBarIcon =
   (icon) =>
@@ -22,7 +23,8 @@ export default function UserScreenStack_copy({ navigation }) {
         name="User"
         component={UserScreenLayout}
         options={{
-          headerTitle: userProfile.currentUser.email.split('@')[0],
+          headerTitle: 'Me',
+          // headerTitle: userProfile.currentUser.email.split('@')[0],
           headerRight: () => (
             <MaterialIcons
               name="settings"
@@ -39,17 +41,22 @@ export default function UserScreenStack_copy({ navigation }) {
 }
 
 const UserScreenLayout = () => {
-  console.log(userProfile.currentUser.email.split('')[0]);
   return (
     <View style={styles.container}>
-      <Avatar.Text
+      {/* <Avatar.Text
         style={styles.avtImg}
         size={100}
         label={userProfile.currentUser.email.split('')[0]}
+      /> */}
+      <Avatar.Image
+        source={{ uri: userProfile?.currentUser?.photoURL }} // Dấu ? trong userProfile?.currentUser.photoURL là toán tử optional chaining trong JavaScript. Toán tử này giúp tránh lỗi TypeError khi bạn cố gắng truy cập thuộc tính của một đối tượng có thể là null hoặc undefined.
+        style={styles.avtImg}
+        size={100}
       />
 
-      <Text style={styles.infoUser}>Email: {userProfile.currentUser.email}</Text>
-      <Text style={styles.infoUser}>UID: {userProfile.currentUser.uid}</Text>
+      <Text style={styles.infoUser}>ProviderId: {userProfile?.currentUser?.providerId}</Text>
+      <Text style={styles.infoUser}>Họ tên: {userProfile?.currentUser?.displayName}</Text>
+      <Text style={styles.infoUser}>Email: {userProfile?.currentUser?.email}</Text>
     </View>
   );
 };

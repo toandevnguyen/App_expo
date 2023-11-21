@@ -6,9 +6,8 @@ import HomeScreen from "../screens/scrLab1/HomeScreen";
 import DetailsScreen from "../screens/scrLab1/DetailsScreen";
 import ScreenTest from "../screens/scrLab1/ScreenTest";
 import MenuBtn from "../components/cpnLab1/MenuBtn";
-import AppBarHeader from "../components/cpnLab1/AppBarHeaderMenu";
+// import AppBarHeader from "../components/cpnLab1/AppBarHeaderMenu";
 import AppBarHeaderMenu from "../components/cpnLab1/AppBarHeaderMenu";
-import Dkmh from "../screens/Webview/Dkmh";
 
 import { PaperProvider } from "react-native-paper";
 import { SafeAreaProvider } from "react-native-safe-area-context";

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrower from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser';
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -9,68 +9,59 @@ import {
 } from 'firebase/auth';
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
-import { Button, TextInput, HelperText } from 'react-native-paper';
+import { Button, TextInput, HelperText, Avatar } from 'react-native-paper';
 
 import { FIRE_BASE_AUTH } from '../../firebase/firebaseConfig'; //getAuth
-import useAuth from '../../hooks/useAuth'; //onAuthStateChanged
+//import useAuth from '../../hooks/useAuth'; //onAuthStateChanged
 
-WebBrower.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
 export default function LoginScreen({ navigation }) {
-  const [token, setToken] = React.useState('');
-
-  const [userInfo, setUserInfo] = React.useState(null);
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    // androidClientId: '871893177611-f4ssc5sva2glknmenq7t6ssl9ftg2kso.apps.googleusercontent.com',//cu
-    androidClientId: '802640332383-a7balt4j9ovg16kmhqqqvmil154k7t83.apps.googleusercontent.com', //phonebook-signin-gg
-    // webClientId: '802640332383-idkv3v1gl3pks10a3euol19ufi3qp5pk.apps.googleusercontent.com', //phonebook-signin-gg
+  //* SignInWithGG
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    iosClientId: '',
+    androidClientId: '802640332383-a7balt4j9ovg16kmhqqqvmil154k7t83.apps.googleusercontent.com', //phonebook-signin-gg 17/11 com.tontapcode.appexpo
     webClientId: '871893177611-q8231d5rvf1lk6jqgqpkdpelml5fboer.apps.googleusercontent.com', //firebase (duytoanexpoapp)
   });
-
   React.useEffect(() => {
-    handleSignInWithGoogle();
-  }, [response, token]);
-
-  async function handleSignInWithGoogle() {
-    const user = await getLocalUser();
-    // console.log('user', user);
-    // alert('user', user);
-    if (!user) {
-      if (response?.type === 'success') {
-        getUserInfo(response.authentication.accessToken);
-      }
-    } else {
-      setUserInfo(user);
-      // console.log({ userInfo });
-      // alert(userInfo.email);
-      // navigation.navigate('HomeScreen');
+    if (response?.type === 'success') {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(FIRE_BASE_AUTH, credential);
     }
-  }
-  const getLocalUser = async () => {
-    const data = await AsyncStorage.getItem('@user');
-    if (!data) return null;
-    return JSON.parse(data);
-  };
+  }, [response]);
 
-  const getUserInfo = async (token) => {
-    if (!token) return;
-    try {
-      const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const user = await response.json();
-      await AsyncStorage.setItem('@user', JSON.stringify(user));
-      setUserInfo(user);
-    } catch (error) {}
-  };
-
+  //* SignInWithEmailAndPassword
   const [isFocusTxtInput, setIsFocusTxtInput] = React.useState(false);
   const [button, setButton] = React.useState(false);
   const [textUserName, setTextUserName] = React.useState('');
   const [textPassword, setTextPassword] = React.useState('');
+
+  const handleSubmit = async () => {
+    if (textUserName && textPassword) {
+      try {
+        await signInWithEmailAndPassword(
+          FIRE_BASE_AUTH,
+          textUserName,
+          textPassword,
+          setButton(true),
+          // navigation.navigate("HomeScreen")
+        );
+        // navigation.navigate("HomeScreen", {
+        //   emailcurrentUser: isUserLogin.user.email,
+
+        // });
+      } catch (err) {
+        setButton(false);
+        alert('Tài khoản ' + textUserName + ' chưa được đăng ký hoặc nhập sai mật khẩu!');
+
+        console.log('got error: ', err.message);
+      }
+    }
+  };
   // const { user } = useAuth();
   const validateEmail = (textUserName) => {
     const reg =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{3,3}))$/; //gg bard
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{1,3}))$/; //gg bard
     // const reg = /^[a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,15})$/; //Bing
     // var reg = /^[a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,15})$/;//chatGPT
     return reg.test(textUserName);
@@ -99,30 +90,14 @@ export default function LoginScreen({ navigation }) {
       });
   };
 
-  const handleSubmit = async () => {
-    if (textUserName && textPassword) {
-      try {
-        await signInWithEmailAndPassword(
-          FIRE_BASE_AUTH,
-          textUserName,
-          textPassword,
-          setButton(true),
-          // navigation.navigate("HomeScreen")
-        );
-        // navigation.navigate("HomeScreen", {
-        //   emailcurrentUser: isUserLogin.user.email,
-
-        // });
-      } catch (err) {
-        setButton(false);
-        alert('Tài khoản ' + textUserName + ' chưa được đăng ký hoặc nhập sai mật khẩu!');
-
-        console.log('got error: ', err.message);
-      }
-    }
-  };
   const imgBg = require('../../../assets/gif/quby_niem_dem_hat.gif');
 
+  // if (loading)
+  //   return (
+  //     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+  //       <ActivityIndicator size="large" />
+  //     </View>
+  //   );
   return (
     <View style={styles.container}>
       <ImageBackground source={imgBg} resizeMode="contain" style={styles.imgbg} />
@@ -132,7 +107,13 @@ export default function LoginScreen({ navigation }) {
           mode="outlined"
           onFocus={() => setIsFocusTxtInput(true)}
           activeOutlineColor={hasErrorsEmail() ? 'rgb(255, 43, 43)' : 'rgb(61, 243, 25)'}
-          outlineColor="rgb(0, 0, 0)"
+          outlineColor={
+            !isFocusTxtInput
+              ? 'rgb(0, 0, 0)'
+              : hasErrorsEmail()
+                ? 'rgb(255, 43, 43)'
+                : 'rgb(61, 243, 25)'
+          }
           label="Email"
           textColor="rgb(0, 0, 0)"
           // labelStyle={{color:"black"}}
@@ -142,6 +123,7 @@ export default function LoginScreen({ navigation }) {
           onChangeText={(textUserName) => setTextUserName(textUserName)}
           left={<TextInput.Icon icon="email" size={20} color="rgb(0, 0, 0)" />}
           right={<TextInput.Affix text=" 0/16" />}
+          keyboardType="email-address"
         />
         {isFocusTxtInput ? (
           <HelperText type="error" visible={hasErrorsEmail()}>
@@ -154,7 +136,13 @@ export default function LoginScreen({ navigation }) {
           activeOutlineColor={hasErrorsPassword() ? 'rgb(255, 43, 43)' : 'rgb(61, 243, 25)'}
           onFocus={() => setIsFocusTxtInput(true)}
           left={<TextInput.Icon icon="shield-key" size={20} color="rgb(0, 0, 0)" />}
-          outlineColor="rgb(0, 0, 0)"
+          outlineColor={
+            !isFocusTxtInput
+              ? 'rgb(0, 0, 0)'
+              : hasErrorsPassword()
+                ? 'rgb(255, 43, 43)'
+                : 'rgb(61, 243, 25)'
+          }
           style={styles.txtInput}
           secureTextEntry
           placeholder="*******"
@@ -201,25 +189,21 @@ export default function LoginScreen({ navigation }) {
           <Text style={{ color: 'green' }}>Đăng ký! </Text>
         </TouchableOpacity>
       </View>
-      {!userInfo ? (
-        <Button
-          style={styles.btnSocialAuth}
-          disabled={!request}
+      <View style={styles.txtSignUp}>
+        <Avatar.Image
+          style={{ backgroundColor: 'rgb(255, 255, 255)' }}
+          size={24}
+          source={{
+            uri: 'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
+          }}
+        />
+        <TouchableOpacity
           onPress={() => {
             promptAsync();
           }}>
-          GG
-        </Button>
-      ) : (
-        <>
-          <Text>Name: {userInfo.name}</Text>
-          <Button
-            style={styles.btnSocialAuth}
-            onPress={async () => await AsyncStorage.removeItem('@user')}>
-            xoa
-          </Button>
-        </>
-      )}
+          <Text style={{ color: 'green', paddingTop: 2 }}>Đăng nhập với Google </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -242,7 +226,7 @@ const styles = StyleSheet.create({
   groupTxtInput: {
     // backgroundColor: "#ce33d6",
     // top: 250,
-    bottom: 100,
+    bottom: 120,
     // marginBottom: 100,
   },
 
@@ -259,7 +243,7 @@ const styles = StyleSheet.create({
     // position: "relative",
     // start: 60,
     // backgroundColor: "#ce33d6",
-    bottom: 100,
+    bottom: 110,
     // top: 425,
     color: 'blue',
   },
@@ -270,7 +254,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(32, 200, 130)',
     borderRadius: 5,
     // position: "relative",
-    bottom: 90,
+    bottom: 100,
     // top: 450,
     // backgroundColor: "#000",
   },
@@ -280,12 +264,13 @@ const styles = StyleSheet.create({
     // position: "relative",
     // start: 90,
     // backgroundColor: "#ce33d6",
-    bottom: 80,
+    bottom: 90,
+    marginVertical: 5,
     // top: 500,
   },
 
   btnSocialAuth: {
-    bottom: 70,
+    bottom: 80,
     marginVertical: 5,
   },
 });
@@ -294,3 +279,50 @@ const styles = StyleSheet.create({
 //Client android ID(15/11): 802640332383-a7balt4j9ovg16kmhqqqvmil154k7t83.apps.googleusercontent.com
 //Web client (auto created by Google Service) 871893177611-q8231d5rvf1lk6jqgqpkdpelml5fboer.apps.googleusercontent.com
 //Client android ID: 871893177611-f4ssc5sva2glknmenq7t6ssl9ftg2kso.apps.googleusercontent.com
+
+// const [token, setToken] = React.useState('');
+
+// const [userInfo, setUserInfo] = React.useState(null);
+// const [request, response, promptAsync] = Google.useAuthRequest({
+//   // androidClientId: '871893177611-f4ssc5sva2glknmenq7t6ssl9ftg2kso.apps.googleusercontent.com',//cu
+//   androidClientId: '802640332383-a7balt4j9ovg16kmhqqqvmil154k7t83.apps.googleusercontent.com', //phonebook-signin-gg
+//   // webClientId: '802640332383-idkv3v1gl3pks10a3euol19ufi3qp5pk.apps.googleusercontent.com', //phonebook-signin-gg
+//   webClientId: '871893177611-q8231d5rvf1lk6jqgqpkdpelml5fboer.apps.googleusercontent.com', //firebase (duytoanexpoapp)
+// });
+
+// React.useEffect(() => {
+//   handleSignInWithGoogle();
+// }, [response, token]);
+
+// async function handleSignInWithGoogle() {
+//   const user = await getLocalUser();
+//   // console.log('user', user);
+//   // alert('user', user);
+//   if (!user) {
+//     if (response?.type === 'success') {
+//       getUserInfo(response.authentication.accessToken);
+//     }
+//   } else {
+//     setUserInfo(user);
+//     // console.log({ userInfo });
+//     // alert(userInfo.email);
+//     // navigation.navigate('HomeScreen');
+//   }
+// }
+// const getLocalUser = async () => {
+//   const data = await AsyncStorage.getItem('@user');
+//   if (!data) return null;
+//   return JSON.parse(data);
+// };
+
+// const getUserInfo = async (token) => {
+//   if (!token) return;
+//   try {
+//     const response = await fetch('https://www.googleapis.com/userinfo/v2/me', {
+//       headers: { Authorization: `Bearer ${token}` },
+//     });
+//     const user = await response.json();
+//     await AsyncStorage.setItem('@user', JSON.stringify(user));
+//     setUserInfo(user);
+//   } catch (error) {}
+// };

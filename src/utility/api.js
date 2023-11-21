@@ -1,13 +1,10 @@
-
 import 'react-native-get-random-values';
 import { v4 } from 'uuid';
-const mapContact = contact => {
-  const {
-    name, picture, phone, cell, email,
-  } = contact;
+const mapContact = (contact) => {
+  const { name, picture, phone, cell, email } = contact;
   return {
     id: v4(),
-    name: name.first+ " " +name.last,
+    name: name.first + ' ' + name.last,
     avatar: picture.large,
     phone,
     cell,
@@ -20,7 +17,7 @@ const mapContact = contact => {
 //await là lấy dữ liệu một tác vụ bất đồng bộ và không gây chặn luồng chính của ứng dụng.
 const fetchContacts = async () => {
   const response = await fetch('https://randomuser.me/api/?results=100&seed=fullstackio');
-  const contactData = await response.json();//đọc dữ liệu từ phản hồi HTTP và trả về một Promise. Thông thường, phản hồi HTTP từ một API sẽ chứa dữ liệu dưới dạng dữ liệu JSON.
+  const contactData = await response.json(); //đọc dữ liệu từ phản hồi HTTP và trả về một Promise. Thông thường, phản hồi HTTP từ một API sẽ chứa dữ liệu dưới dạng dữ liệu JSON.
   return contactData.results.map(mapContact);
 };
 const fetchUserContact = async () => {
@@ -34,8 +31,7 @@ const fetchRandomContact = async () => {
 
   return mapContact(userData.results[0]);
 };
-export {fetchContacts, fetchUserContact, fetchRandomContact};
-
+export { fetchContacts, fetchUserContact, fetchRandomContact };
 
 //Promise là một đối tượng trong JavaScript được sử dụng để thực hiện và quản lý các tác vụ bất đồng bộ. Nó đại diện cho một giá trị có thể tồn tại trong tương lai, có thể là kết quả của một tác vụ bất đồng bộ.
 //await response.json(), việc sử dụng await là để đợi cho Promise được giải quyết (hoàn thành). Khi Promise được giải quyết, nó trả về dữ liệu JSON từ phản hồi HTTP (nếu thành công), hoặc trả về lỗi (nếu có lỗi xảy ra).

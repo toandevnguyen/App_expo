@@ -1,28 +1,18 @@
 /* eslint-disable prettier/prettier */
 // import 'expo-dev-client';
 
-import { createUserWithEmailAndPassword,signOut } from "firebase/auth";
-import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-} from "react-native";
-import {
-  Button,
-  TextInput,
-  Avatar,
-  HelperText,
-} from "react-native-paper";
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import React from 'react';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { Button, TextInput, Avatar, HelperText } from 'react-native-paper';
 
-import { FIRE_BASE_AUTH } from "../../firebase/firebaseConfig";
+import { FIRE_BASE_AUTH } from '../../firebase/firebaseConfig';
 
 // import { FIRE_BASE_AUTH } from "../../firebase/firebaseConfig";
 
 export default function SignUpScreen({ navigation }) {
-  const [textUserName, setTextUserName] = React.useState("");
-  const [textPassword, setTextPassword] = React.useState("");
+  const [textUserName, setTextUserName] = React.useState('');
+  const [textPassword, setTextPassword] = React.useState('');
   const [button, setButton] = React.useState(false);
   const validateEmail = (textUserName) => {
     const reg =
@@ -49,23 +39,19 @@ export default function SignUpScreen({ navigation }) {
           textUserName,
           textPassword,
           setButton(true),
-          alert(
-            "Tài khoản: " + textUserName + "\n Password: " + textPassword
-          )
+          alert('Tài khoản: ', textUserName, '\n Password: ', textPassword),
           // navigation.navigate("LoginScreen")
         );
         await signOut(FIRE_BASE_AUTH);
-
-
       } catch (error) {
         alert(
-          "Tài khoản " +
-            textUserName +
-            " đã được tồn tại." +
-            "\n" +
-            "Vui lòng nhập địa chỉ gmail khác!"
+          'Tài khoản ',
+          textUserName,
+          ' đã được tồn tại.',
+          '\n',
+          'Vui lòng nhập địa chỉ gmail khác!',
         );
-        console.log("got error: ", error.message);
+        console.log('got error: ', error.message);
       }
     }
   };
@@ -73,7 +59,7 @@ export default function SignUpScreen({ navigation }) {
   // const auth = FIRE_BASE_AUTH;
   // const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   // const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
-  const image = { uri: "https://legacy.reactjs.org/logo-og.png" };
+  const image = { uri: 'https://legacy.reactjs.org/logo-og.png' };
 
   return (
     <View style={styles.container}>
@@ -89,7 +75,7 @@ export default function SignUpScreen({ navigation }) {
         <Avatar.Image
           style={{ marginTop: 100 }}
           size={100}
-          source={require("../../../assets/AvtTonDev.png")}
+          source={require('../../../assets/AvtTonDev.png')}
         />
         <View style={styles.textInput}>
           <TextInput
@@ -102,7 +88,7 @@ export default function SignUpScreen({ navigation }) {
             right={<TextInput.Affix text=" 0/16" />}
           />
           <HelperText type="error" visible={hasErrorsEmail()}>
-          Nhập đúng định dạng địa chỉ Email!
+            Nhập đúng định dạng địa chỉ Email!
           </HelperText>
 
           <TextInput
@@ -124,7 +110,7 @@ export default function SignUpScreen({ navigation }) {
 
         <Button
           loading={button}
-          icon={button?null:"plus"}
+          icon={button ? null : 'plus'}
           mode="contained-tonal"
           onPress={handleSubmit}
           // onPress={() => {
@@ -146,21 +132,21 @@ const styles = StyleSheet.create({
     flex: 1,
     //justifyContent: "center",
     //alignItems: "center",
-    backgroundColor: "#ce33d6",
+    backgroundColor: '#ce33d6',
   },
 
   image: {
     //backgroundColor: "#000",
     flex: 1,
 
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   title: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 24,
-    color: "white",
+    color: 'white',
 
     marginBottom: 40,
 
@@ -170,10 +156,10 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    width: "60%",
+    width: '60%',
     marginVertical: 10,
     //backgroundColor:"green",
     //justifyContent: "center",
-    alignItems: "stretch",
+    alignItems: 'stretch',
   },
 });
