@@ -1,15 +1,14 @@
 import React from 'react';
-import { StyleSheet, View,TouchableOpacity,Image,Text} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 
-const ContactThumbnail= ({name,phone,avatar,textColor,onPress,})=>
- {
+const ContactThumbnail = ({ name, phone, avatar, textColor, onPress }) => {
   const colorStyle = {
     color: textColor,
   };
   const ImageComponent = onPress ? TouchableOpacity : View;
-  console.log('Name : ' +name );
+  console.log('Name : ' + name);
   return (
     <View style={styles.container}>
       <ImageComponent onPress={onPress}>
@@ -29,7 +28,7 @@ const ContactThumbnail= ({name,phone,avatar,textColor,onPress,})=>
       )}
     </View>
   );
-}
+};
 
 export default ContactThumbnail;
 

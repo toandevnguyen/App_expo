@@ -8,57 +8,37 @@ import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // import DrawerNavigator from './src/components/cpnLab2/DrawerNavigator';
-import useAuth from './src/hooks/useAuth'; //hook onAuthStateChanged
-import Tabs from './src/navigation/Lab4BookStoreNaviga/tabs';
-import { BookDetail } from './src/screens/Lab4BookStoreScr/index';
-import LoginScreen from './src/screens/scrLab1/LoginScreen';
-import SignUpScreen from './src/screens/scrLab1/SignUpScreen';
-import WelcomeScreen from './src/screens/scrLab1/WelcomeScreen';
-// import { FIRE_BASE_AUTH } from '../App_expo/src/firebase/firebaseConfig'; //getAuth
+import useAuth from '../../hooks/useAuth'; //hook onAuthStateChanged
+import MaterialBottomTab from '../../navigation/GiuaKyKamiSpaNvg/MaterialBottomTab';
+import LoginScreen from '../GiuaKyKamiSpaScr/LoginScreen';
 
+// import { FIRE_BASE_AUTH } from '../App_expo/src/firebase/firebaseConfig'; //getAuth
 const NativeStack = createNativeStackNavigator();
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    border: 'transparent',
-  },
-};
-const App = () => {
+const KamiSpaApp = () => {
   const userLoginEmail = useAuth();
   console.log(' file: App.js:35 ~ App ~ userLoginEmail:', userLoginEmail.user);
   return (
     <SafeAreaProvider>
       <PaperProvider>
-        <NavigationContainer theme={theme}>
+        <NavigationContainer>
           {userLoginEmail.user ? (
             <NativeStack.Navigator initialRouteName="HomeScreen">
               <NativeStack.Screen
                 name="HomeScreen"
-                component={Tabs}
+                component={MaterialBottomTab}
                 options={{
                   headerShown: false,
                 }}
                 // console.log("userLoginEmail"),
               />
-              <NativeStack.Screen
-                name="BookDetail"
-                component={BookDetail}
-                options={{ headerShown: false }}
-              />
+              {/* <NativeStack.Screen
+              name="BookDetail"
+              component={BookDetail}
+              options={{ headerShown: false }}
+            /> */}
             </NativeStack.Navigator>
           ) : (
-            <NativeStack.Navigator initialRouteName="WelcomeScreen">
-              <NativeStack.Screen
-                name="WelcomeScreen"
-                component={WelcomeScreen}
-                options={{ headerShown: false }}
-              />
-              <NativeStack.Screen
-                name="SignUpScreen"
-                component={SignUpScreen}
-                // options={{ headerShown: false }}
-              />
+            <NativeStack.Navigator initialRouteName="LoginScreen">
               <NativeStack.Screen
                 name="LoginScreen"
                 component={LoginScreen}
@@ -74,7 +54,7 @@ const App = () => {
   );
 };
 
-export default App;
+export default KamiSpaApp;
 
 //Todo: để mai làm
 //? tao làm gì?
