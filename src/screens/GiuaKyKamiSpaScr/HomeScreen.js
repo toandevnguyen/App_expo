@@ -1,28 +1,39 @@
 import React from 'react';
 import { FlatList, ScrollView, Text, View, StyleSheet } from 'react-native';
 import { Appbar, TextInput, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // import Todo from '../../components/TodosAppCpn/Todo';
+import RNE_SpeedDialCPN from '../../components/KamiSpaAppCpn/RNE_SpeedDialCPN';
 import ServiceItemList from '../../components/KamiSpaAppCpn/ServiceItemList';
 import { firebaseStore, FIRE_BASE_AUTH } from '../../firebase/firebaseConfig';
+
 const userProfile = FIRE_BASE_AUTH;
 const today = new Date();
-const day = today.getDate();
+const day = today.getDate().toString().padStart(2, '0');
 const month = today.getMonth() + 1;
 const year = today.getFullYear();
-const hour = today.getHours();
+const hour = today.getHours().toString().padStart(2, '0');
 const minute = today.getMinutes().toString().padStart(2, '0');
-const second = today.getSeconds();
+const second = today.getSeconds().toString().padStart(2, '0');
 
 function HomeScreen() {
-  const [textInputTodo, setTextInputTodo] = React.useState(); //use the useState hook here, and update state every time the text changes via the onChangeText prop from the TextInput component.
+  //TODO:chức năng Search
+  const [searchResults, setSearchResults] = React.useState([]);
+  const searchService = (query) => {
+    const results = services.filter((service) => {
+      return service.ServiceName.toLowerCase().includes(query.toLowerCase());
+    });
+    setSearchResults(results);
+  };
+
+  const [txtInputServiceName, setTxtInputServiceName] = React.useState(''); //use the useState hook here, and update state every time the text changes via the onChangeText prop from the TextInput component.
 
   const ref = firebaseStore.firestore().collection('KamiSpa-db'); //create a reference to the collection, which can be used throughout our component to query it.
 
   const [loading, setLoading] = React.useState(true); //We need a loading state to indicate to the user that the first connection (and initial data read) to Cloud Firestore has not yet completed.
-  const [todos, setTodos] = React.useState([]); //manng luu nhieu cong viec
-
+  const [services, setServices] = React.useState([]); //manng luu nhieu cong viec
+  // const [open, setOpen] = React.useState(false);
   // ...
   //Đây là một hook trong React, cho phép bạn thực hiện các hiệu ứng phụ sau khi render.
   React.useEffect(() => {
@@ -32,15 +43,18 @@ function HomeScreen() {
     return ref.onSnapshot((querySnapshot) => {
       const list = [];
       querySnapshot.forEach((doc) => {
-        const { ServiceName, price } = doc.data();
+        const { ServiceName, price, Creator, Time, FinalUpdate } = doc.data();
         list.push({
           id: doc.id,
           ServiceName,
           price,
+          Creator,
+          Time,
+          FinalUpdate,
         });
       });
 
-      setTodos(list);
+      setServices(list);
 
       if (loading) {
         setLoading(false);
@@ -56,16 +70,16 @@ function HomeScreen() {
     const serviceExists = await firebaseStore
       .firestore()
       .collection('KamiSpa-db')
-      .where('ServiceName', '==', textInputTodo)
+      .where('ServiceName', '==', txtInputServiceName)
       .get();
 
     // Nếu ServiceName đã tồn tại, thông báo cho người dùng và không thêm mới
-    if (!serviceExists.empty || !textInputTodo.trim()) {
+    if (!serviceExists.empty || !txtInputServiceName.trim()) {
       alert('Chưa nhập ServiceName hoặc ServiceName đã tồn tại!');
       return;
     }
     await ref.add({
-      ServiceName: textInputTodo,
+      ServiceName: txtInputServiceName,
       price: 1,
       Creator: 'Admin Toan',
       Time: `${day}/${month}/${year} ${hour}:${minute}:${second}`,
@@ -73,7 +87,7 @@ function HomeScreen() {
     });
 
     // Đặt giá trị của biến todo thành chuỗi rỗng.
-    setTextInputTodo('');
+    setTxtInputServiceName('');
   }
 
   if (loading) {
@@ -99,16 +113,32 @@ function HomeScreen() {
 
       <FlatList
         style={styles.FlatList}
-        data={todos}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ServiceItemList {...item} />}
+        data={searchResults.length > 0 ? searchResults : services}
+        // data={services}
+        keyExtractor={(item) => item.id} //id cua todo sẽ được truyền vào làm id cho mỗi item trong FlatList
+        renderItem={({ item }) => {
+          // console.log('Item ID:', item.id);
+          return (
+            // Log ID của mỗi item trong danh sách
+            <ServiceItemList item={item} />
+          );
+        }} //~ <ServiceItemList id={1} ServiceName="Lot mun" price={1}/>
       />
       <TextInput
-        style={styles.TextInput}
-        label="Add new Service"
-        value={textInputTodo}
-        onChangeText={setTextInputTodo}
+        textColor="rgb(0, 0, 0)"
+        outlineColor="rgb(239, 80, 107)"
+        activeOutlineColor="rgb(239, 80, 107)"
+        mode="outlined"
+        style={styles.textInput}
+        label="Tìm kiếm"
+        value={txtInputServiceName}
+        // onChangeText={setTxtInputServiceName}
+        onChangeText={(query) => {
+          setTxtInputServiceName(query);
+          searchService(query);
+        }}
       />
+      <RNE_SpeedDialCPN />
     </View>
   );
 }
@@ -157,18 +187,15 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     // backgroundColor: 'rgb(201, 237, 40)',
   },
-  TextInput: {
-    width: '100%',
+  grTxtInput: {
+    flexDirection: 'row',
+    margin: 5,
+  },
+  textInput: {
+    margin: 10,
+    width: '95%',
     backgroundColor: 'rgb(255, 255, 255)',
+    // borderColor: 'rgb(0, 0, 0)',
   },
 });
 export default HomeScreen;
-
-// {/* <Button
-//           mode="text"
-//           style={styles.Button}
-//           // icon="plus-circle"
-//           fontSize="20"
-//           onPress={addTodo}>
-//           +
-//         </Button> */}

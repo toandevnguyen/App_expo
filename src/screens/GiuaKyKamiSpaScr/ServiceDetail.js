@@ -4,24 +4,15 @@ import { Appbar, TextInput, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // import Todo from '../../components/TodosAppCpn/Todo';
-import ServiceItemListDetail from '../../components/KamiSpaAppCpn/ServiceItemListDetail';
+import ServiceItemDetail from '../../components/KamiSpaAppCpn/ServiceItemDetail';
 import { firebaseStore, FIRE_BASE_AUTH } from '../../firebase/firebaseConfig';
 const userProfile = FIRE_BASE_AUTH;
-const today = new Date();
-const day = today.getDate();
-const month = today.getMonth() + 1;
-const year = today.getFullYear();
-const hour = today.getHours();
-const minute = today.getMinutes().toString().padStart(2, '0');
-const second = today.getSeconds();
 
 function ServiceDetail() {
-  const [textInputTodo, setTextInputTodo] = React.useState(); //use the useState hook here, and update state every time the text changes via the onChangeText prop from the TextInput component.
-
   const ref = firebaseStore.firestore().collection('KamiSpa-db'); //create a reference to the collection, which can be used throughout our component to query it.
 
   const [loading, setLoading] = React.useState(true); //We need a loading state to indicate to the user that the first connection (and initial data read) to Cloud Firestore has not yet completed.
-  const [todos, setTodos] = React.useState([]); //manng luu nhieu cong viec
+  const [service, setService] = React.useState([]); //manng luu nhieu cong viec
 
   // ...
   //Đây là một hook trong React, cho phép bạn thực hiện các hiệu ứng phụ sau khi render.
@@ -43,7 +34,7 @@ function ServiceDetail() {
         });
       });
 
-      setTodos(list);
+      setService(list);
 
       if (loading) {
         setLoading(false);
@@ -52,36 +43,6 @@ function ServiceDetail() {
   }, []);
 
   // ...
-
-  // Create a new function in our component called addTodo. This method will use our existing ref variable to add a new item to the Firestore database.
-  async function addService() {
-    // Kiểm tra xem ServiceName có tồn tại trong Firestore hay không
-    const serviceExists = await firebaseStore
-      .firestore()
-      .collection('KamiSpa-db')
-      .where('ServiceName', '==', textInputTodo)
-      .get();
-
-    // Nếu ServiceName đã tồn tại, thông báo cho người dùng và không thêm mới
-    if (!serviceExists.empty || !textInputTodo.trim()) {
-      alert('Chưa nhập ServiceName hoặc ServiceName đã tồn tại!');
-      return;
-    }
-    await ref.add({
-      ServiceName: textInputTodo,
-      price: 1,
-      Creator: 'Admin Toan',
-      Time: `${day}/${month}/${year} ${hour}:${minute}:${second}`,
-      FinalUpdate: `${day}/${month}/${year} ${hour}:${minute}:${second}`,
-    });
-
-    // Đặt giá trị của biến todo thành chuỗi rỗng.
-    setTextInputTodo('');
-  }
-
-  if (loading) {
-    return null; // or a spinner
-  }
 
   return (
     <View style={styles.container}>
@@ -92,9 +53,9 @@ function ServiceDetail() {
 
       <FlatList
         style={styles.FlatList}
-        data={todos}
+        data={service}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ServiceItemListDetail {...item} />}
+        renderItem={({ item }) => <ServiceItemDetail {...item} />}
       />
     </View>
   );
@@ -150,12 +111,3 @@ const styles = StyleSheet.create({
   },
 });
 export default ServiceDetail;
-
-// {/* <Button
-//           mode="text"
-//           style={styles.Button}
-//           // icon="plus-circle"
-//           fontSize="20"
-//           onPress={addTodo}>
-//           +
-//         </Button> */}

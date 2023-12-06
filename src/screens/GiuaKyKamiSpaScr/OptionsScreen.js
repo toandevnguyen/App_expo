@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { deleteUser, signOut } from 'firebase/auth';
-import { StyleSheet, View, Text, TouchableHighlight, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 // import * as WebBrowser from 'expo-web-browser';
+import { Appbar } from 'react-native-paper';
 
 import DetailListItem from '../../components/cpnLab1/DetailListItem';
 import { FIRE_BASE_AUTH } from '../../firebase/firebaseConfig';
 import useAuth from '../../hooks/useAuth'; //hook onAuthStateChanged
 // WebBrowser.maybeCompleteAuthSession();
-
+const userProfile = FIRE_BASE_AUTH;
 export default function OptionsScreen({ navigation }) {
   const userLoginEmail = useAuth();
   console.log('🚀 ~ file: OptionsScreen.js:13 ~ OptionsScreen ~ userLoginEmail:', userLoginEmail);
@@ -36,6 +36,9 @@ export default function OptionsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Appbar style={{ width: '100%', backgroundColor: 'rgb(239, 80, 107)' }}>
+        <Appbar.Content title={userProfile?.currentUser?.displayName} color="rgb(255, 255, 255)" />
+      </Appbar>
       <DetailListItem title="Update Profile" />
       <DetailListItem title="Change Language" />
 

@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
 
 import App from './App';
+import AddServiceCPN from './src/components/KamiSpaAppCpn/AddServiceCPN';
 import DrawerNavigator from './src/components/cpnLab2/DrawerNavigator';
 import CustomNavigationBar from './src/navigation/CustomNavigationBar';
 import CustomNavigationBar_Lab2 from './src/navigation/CustomNavigationBar_Lab2';
@@ -17,4 +18,4 @@ import WelcomeScreen from './src/screens/scrLab1/WelcomeScreen';
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,
 // the environment is set up appropriately
-registerRootComponent(BookStoreApp);
+registerRootComponent(KamiSpaApp);

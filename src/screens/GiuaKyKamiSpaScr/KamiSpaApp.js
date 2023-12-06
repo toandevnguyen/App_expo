@@ -21,8 +21,8 @@ const KamiSpaApp = () => {
     <SafeAreaProvider>
       <PaperProvider>
         <NavigationContainer>
-          {userLoginEmail.user ? (
-            <NativeStack.Navigator initialRouteName="HomeScreen">
+          <NativeStack.Navigator>
+            {userLoginEmail.user ? (
               <NativeStack.Screen
                 name="HomeScreen"
                 component={MaterialBottomTab}
@@ -31,14 +31,7 @@ const KamiSpaApp = () => {
                 }}
                 // console.log("userLoginEmail"),
               />
-              {/* <NativeStack.Screen
-              name="BookDetail"
-              component={BookDetail}
-              options={{ headerShown: false }}
-            /> */}
-            </NativeStack.Navigator>
-          ) : (
-            <NativeStack.Navigator initialRouteName="LoginScreen">
+            ) : (
               <NativeStack.Screen
                 name="LoginScreen"
                 component={LoginScreen}
@@ -46,8 +39,8 @@ const KamiSpaApp = () => {
 
                 // options={{ headerShown: false }}
               />
-            </NativeStack.Navigator>
-          )}
+            )}
+          </NativeStack.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </SafeAreaProvider>

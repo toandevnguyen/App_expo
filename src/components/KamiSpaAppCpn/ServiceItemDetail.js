@@ -6,11 +6,6 @@ import { firebaseStore } from '../../firebase/firebaseConfig';
 
 function ServiceItemListDetail({ id, ServiceName, price, Creator, Time, FinalUpdate }) {
   const [onPressItem, setOnPressItem] = React.useState(false);
-  // async function toggleComplete() {
-  //   await firebaseStore.firestore().collection('KamiSpa-db').doc(id).update({
-  //     // complete: !complete,
-  //   });
-  // }
 
   return (
     <View style={styles.contactInfo}>

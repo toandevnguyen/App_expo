@@ -7,20 +7,9 @@ module.exports = {
     'universe/node',
     // '@react-native',
   ],
-  
-
+  rules: {
+    'no-unused-vars': 'off', //FIXME: 'no-unused-vars': 'off',
+    // "prettier/prettier": ["error", { "endOfLine": "auto" }], //FIXME: fix LF/CRLF VS Code
+  },
+ 
 };
-
-//   module.exports = {
-//     root: true,
-//     extends: '@react-native',
-//     parser: 'babel-eslint',
-//     plugins: [
-//       'prettier'
-//     ],
-//     rules: {
-//       'prettier/prettier': ['error', {
-//         endOfLine: 'lf' // crlf la cua Windows , hoac dung auto
-//       }]
-//     }
-//   };
