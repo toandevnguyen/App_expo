@@ -1,18 +1,11 @@
 import React from 'react';
-import {StyleSheet,View,TouchableHighlight,Text,Image,} from 'react-native';
+import { StyleSheet, View, TouchableHighlight, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import colors from '../../../src/utility/colors';
 
-const  ContactListItem=({
-  name, avatar, phone, onPress,
-}) =>
-{
+const ContactListItem = ({ name, avatar, phone, onPress }) => {
   return (
-    <TouchableHighlight
-      underlayColor={colors.grey}
-      style={styles.container}
-      onPress={onPress}
-    >
+    <TouchableHighlight underlayColor={colors.grey} style={styles.container} onPress={onPress}>
       <View style={styles.contactInfo}>
         <Image
           style={styles.avatar}
@@ -28,7 +21,7 @@ const  ContactListItem=({
       </View>
     </TouchableHighlight>
   );
-}
+};
 
 export default ContactListItem;
 

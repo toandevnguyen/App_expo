@@ -1,7 +1,8 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFireStoreDB } from 'firebase/firestore';
+import firebaseStore from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,10 +19,14 @@ const firebaseConfig = {
   measurementId: 'G-19KH15K14L',
 };
 
+if (!firebaseStore.apps.length) {
+  firebaseStore.initializeApp(firebaseConfig);
+}
+export { firebaseStore };
 // Initialize Firebase
-
 export const FIRE_BASE_EXPO_APP = initializeApp(firebaseConfig);
 export const FIRE_BASE_AUTH = getAuth(FIRE_BASE_EXPO_APP);
-// export const FIRE_BASE_FIRE_STORE_DB= getFireStoreDB(FIRE_BASE_EXPO_APP);
+// const FIRE_BASE_FIRE_STORE_DB = FIRE_BASE_EXPO_APP.fir;
+// export default FIRE_BASE_FIRE_STORE_DB;
 
 // const analytics = getAnalytics(app);

@@ -1,16 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import HomeScreen from "../screens/scrLab1/HomeScreen";
-import DetailsScreen from "../screens/scrLab1/DetailsScreen";
-import ScreenTest from "../screens/scrLab1/ScreenTest";
-import MenuBtn from "../components/cpnLab1/MenuBtn";
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from '../screens/scrLab1/HomeScreen';
+import DetailsScreen from '../screens/scrLab1/DetailsScreen';
+import ScreenTest from '../screens/scrLab1/ScreenTest';
+import MenuBtn from '../components/cpnLab1/MenuBtn';
 // import AppBarHeader from "../components/cpnLab1/AppBarHeaderMenu";
-import AppBarHeaderMenu from "../components/cpnLab1/AppBarHeaderMenu";
+import AppBarHeaderMenu from '../components/cpnLab1/AppBarHeaderMenu';
 
-import { PaperProvider } from "react-native-paper";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 
@@ -26,8 +26,7 @@ const CustomNavigationBar = () => {
               // headerTintColor: "white",
               // headerStyle: {backgroundColor:"tomato"},
               // headerTitleAlign: "center",
-            }}
-          >
+            }}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Dkmh" component={Dkmh} />
             <Stack.Screen name="Details" component={DetailsScreen} />

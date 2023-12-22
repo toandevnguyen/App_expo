@@ -8,12 +8,12 @@ import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // import DrawerNavigator from './src/components/cpnLab2/DrawerNavigator';
-import useAuth from './src/hooks/useAuth'; //hook onAuthStateChanged
-import Tabs from './src/navigation/Lab4BookStoreNaviga/tabs';
-import { BookDetail } from './src/screens/Lab4BookStoreScr/index';
-import LoginScreen from './src/screens/scrLab1/LoginScreen';
-import SignUpScreen from './src/screens/scrLab1/SignUpScreen';
-import WelcomeScreen from './src/screens/scrLab1/WelcomeScreen';
+import BookDetail from './BookDetail';
+import useAuth from '../../hooks/useAuth';
+import Tabs from '../../navigation/Lab4BookStoreNaviga/tabs';
+import LoginScreen from '../scrLab1/LoginScreen';
+import SignUpScreen from '../scrLab1/SignUpScreen';
+import WelcomeScreen from '../scrLab1/WelcomeScreen';
 // import { FIRE_BASE_AUTH } from '../App_expo/src/firebase/firebaseConfig'; //getAuth
 
 const NativeStack = createNativeStackNavigator();
