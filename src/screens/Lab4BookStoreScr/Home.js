@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 
 import { COLORS, FONTS, SIZES, icons, images } from '../../constants';
+import { FIRE_BASE_AUTH } from '../../firebase/firebaseConfig';
+import useAuth from '../../hooks/useAuth';
 
 const LineDivider = () => {
   return (
@@ -18,10 +20,13 @@ const LineDivider = () => {
     </View>
   );
 };
+const userProfile = FIRE_BASE_AUTH;
 
 const Home = ({ navigation }) => {
+  const userLoginEmail = useAuth();
+
   const profileData = {
-    name: 'Username',
+    name: userProfile?.currentUser?.displayName,
     point: 200,
   };
 
