@@ -1,0 +1,1 @@
+Link thư mục và Video Demo bài tập: https://24ffdk-my.sharepoint.com/personal/toan5tb1drivedev_24ffdk_onmicrosoft_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Ftoan5tb1drivedev%5F24ffdk%5Fonmicrosoft%5Fcom%2FDocuments%2FTDMU%2FN%C4%83m%204%20%2823%2D24%29%2FHK1%2FReactNative%5FCQ02%5FTVH%2FTH%2FLab4&ga=1
